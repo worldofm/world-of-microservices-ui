@@ -4,12 +4,17 @@
   "description": "Client-side of MERN Starter.",
   "main": "index.js",
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:dev": "webpack-dev-server --inline --content-base . --history-api-fallback",
+    "start:prod": "webpack && node server.js"
   },
   "author": "Joshua Slate",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.13.1",
+    "compression": "^1.7.1",
+    "express": "^4.16.2",
+    "if-env": "^1.0.0",
     "lodash": "^4.6.1",
     "moment": "^2.13.0",
     "react": "~15.2.1",
