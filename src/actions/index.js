@@ -6,6 +6,7 @@ import { AUTH_USER,
     UNAUTH_USER } from './types';
 
 const API_URL = 'http://auth-world-of-mincroservices.127.0.0.1.nip.io';
+// const API_URL = 'http://localhost:8001';
 
 export function errorHandler(dispatch, error, type) {
     let errorMessage = '';
@@ -39,7 +40,7 @@ export function loginUser({ email, password }) {
             .then(response => {
                 cookie.save('token', response.data.token, { path: '/' });
                 dispatch({ type: AUTH_USER });
-                window.location.href = 'http://localhost:8080/dashboard';
+                window.location.href = '/dashboard';
             })
             .catch((error) => {
                 errorHandler(dispatch, error.response, AUTH_ERROR)
@@ -47,12 +48,11 @@ export function loginUser({ email, password }) {
     }
 }
 
-export function registerUser({ email, firstName, lastName, password }) {
+export function registerUser({ username, password }) {
     return function(dispatch) {
-        var username = email;
-        axios.post(`${API_URL}/users/sign-up`, { username, firstName, lastName, password })
+        axios.post(`${API_URL}/users/sign-up`, { username, password })
             .then(response => {
-                window.location.href = 'http://localhost:8080/login';
+                window.location.href = '/login';
             })
             .catch((error) => {
                 errorHandler(dispatch, error.response, AUTH_ERROR)
@@ -65,6 +65,6 @@ export function logoutUser() {
         dispatch({ type: UNAUTH_USER });
         cookie.remove('token', { path: '/' });
 
-        window.location.href = 'http://localhost:8080/login';
+        window.location.href = '/login';
     }
 }

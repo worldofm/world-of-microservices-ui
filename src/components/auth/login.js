@@ -31,7 +31,7 @@ class Login extends Component {
                 <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                     {this.renderAlert()}
                     <div>
-                        <label>Email</label>
+                        <label>Username</label>
                         <Field name="email" className="form-control" component="input" type="text" />
                     </div>
                     <div>
